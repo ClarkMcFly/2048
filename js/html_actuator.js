@@ -46,6 +46,10 @@ HTMLActuator.prototype.clearContainer = function (container) {
   }
 };
 
+HTMLActuator.prototype.toRoman = function(number) {
+	return 7;
+};
+
 HTMLActuator.prototype.addTile = function (tile) {
   var self = this;
 
@@ -62,7 +66,29 @@ HTMLActuator.prototype.addTile = function (tile) {
   this.applyClasses(wrapper, classes);
 
   inner.classList.add("tile-inner");
-  inner.textContent = tile.value;
+  switch(tile.value)
+  {
+	case 2: inner.textContent="II"; break;
+	case 4: inner.textContent="IV"; break;
+	case 8: inner.textContent="VIII"; break;
+	case 16: inner.textContent="XVI"; break;
+	case 32: inner.textContent="XXXII"; break;
+	case 64: inner.textContent="LXIV"; break;
+	case 128: inner.textContent="CXXVIII"; break;
+	case 256: inner.textContent="CCLVI"; break;
+	case 512: inner.textContent="DXII"; break;
+	case 1024: inner.textContent="MXXIV"; break;
+	case 2048: inner.textContent="MMXLVIII"; break;
+	case 4096: inner.textContent="Enough"; break;
+	case 8192: inner.textContent="Why?"; break;
+	case 16384: inner.textContent="Stop!"; break;
+	case 32768: inner.textContent="The"; break;
+	case 65536: inner.textContent="End"; break;
+	case 131072: inner.textContent="..."; break;
+	default: inner.textContent="?"; break;
+	
+  }
+  
 
   if (tile.previousPosition) {
     // Make sure that the tile gets rendered in the previous position first
