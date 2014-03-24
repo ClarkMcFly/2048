@@ -129,25 +129,43 @@ HTMLActuator.prototype.positionClass = function (position) {
   return "tile-position-" + position.x + "-" + position.y;
 };
 
+HTMLActuator.prototype.toRoman = function (num) {
+	if (!+num){
+		return num;
+	} else {
+		var digits = String(+num).split(""),
+        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+               "","I","II","III","IV","V","VI","VII","VIII","IX"],
+        roman = "",
+        i = 3;
+		while (i--)
+		{
+			roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+		}			
+		return Array(+digits.join("") + 1).join("M") + roman;
+	}     
+}
+
 HTMLActuator.prototype.updateScore = function (score) {
   this.clearContainer(this.scoreContainer);
 
   var difference = score - this.score;
   this.score = score;
 
-  this.scoreContainer.textContent = this.score;
-
+  this.scoreContainer.textContent = HTMLActuator.prototype.toRoman(this.score);
+  
   if (difference > 0) {
     var addition = document.createElement("div");
     addition.classList.add("score-addition");
-    addition.textContent = "+" + difference;
+    addition.textContent = "+" + HTMLActuator.prototype.toRoman(difference);
 
     this.scoreContainer.appendChild(addition);
   }
 };
 
 HTMLActuator.prototype.updateBestScore = function (bestScore) {
-  this.bestContainer.textContent = bestScore;
+  this.bestContainer.textContent = HTMLActuator.prototype.toRoman(bestScore);
 };
 
 HTMLActuator.prototype.message = function (won) {
